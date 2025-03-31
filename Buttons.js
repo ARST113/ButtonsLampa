@@ -73,7 +73,7 @@ Lampa.Platform.tv();
                         } catch (err) {
                             console.error('[SorterPlugin] Ошибка сортировки:', err);
                         }
-                    }, 500); // задержка 500 мс
+                    }, 100); // задержка 100 мс
                 }
             });
 
