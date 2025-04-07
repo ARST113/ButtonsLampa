@@ -20,20 +20,15 @@ Lampa.Platform.tv();
             text-overflow: ellipsis;
         }
 
-        /* Скрываем текст у кнопки КиноПоиска (если используется класс view--rate) */
-        .full-start__button.view--rate span {
-            display: none !important;
-        }
-        
         /* Специальные стили для кнопки "Оценить на Кинопоиске" */
-        .full-start__button.button--kinopoisk_rating span {
-            display: none !important;
-        }
-        .full-start__button.button--kinopoisk_rating {
-            max-width: 160px !important;
-            white-space: nowrap;
+        .full-start__button.view--rate {
+            width: 48px !important;
+            min-width: 48px !important;
+            max-width: 48px !important;
             overflow: hidden;
-            text-overflow: ellipsis;
+        }
+        .full-start__button.view--rate *:not(svg):not(svg *) {
+            display: none !important;
         }
     `;
     document.head.appendChild(style);
@@ -84,7 +79,7 @@ Lampa.Platform.tv();
                                 targetContainer.append(btn);
                             });
 
-                            // Блокировка кликов по кнопке КиноПоиска (например, если используется класс view--rate)
+                            // Блокировка кликов по кнопке КиноПоиска
                             fullContainer.find('.full-start__button.view--rate').each(function () {
                                 const btn = $(this);
                                 btn.off('hover:enter click');
