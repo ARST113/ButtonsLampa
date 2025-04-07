@@ -12,7 +12,7 @@ Lampa.Platform.tv();
             justify-content: flex-start;
         }
 
-        /* Чуть ограничим макс. ширину, чтобы не были слишком длинные */
+        /* Ограничиваем длину всех кнопок */
         .full-start__button {
             max-width: 160px;
             white-space: nowrap;
@@ -20,9 +20,20 @@ Lampa.Platform.tv();
             text-overflow: ellipsis;
         }
 
-        /* Скрытие текста у КиноПоиска — по желанию */
+        /* Скрываем текст у кнопки КиноПоиска (если используется класс view--rate) */
         .full-start__button.view--rate span {
             display: none !important;
+        }
+        
+        /* Специальные стили для кнопки "Оценить на Кинопоиске" */
+        .full-start__button.button--kinopoisk_rating span {
+            display: none !important;
+        }
+        .full-start__button.button--kinopoisk_rating {
+            max-width: 160px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     `;
     document.head.appendChild(style);
@@ -73,7 +84,7 @@ Lampa.Platform.tv();
                                 targetContainer.append(btn);
                             });
 
-                            // Блокировка кликов по кнопке КиноПоиска
+                            // Блокировка кликов по кнопке КиноПоиска (например, если используется класс view--rate)
                             fullContainer.find('.full-start__button.view--rate').each(function () {
                                 const btn = $(this);
                                 btn.off('hover:enter click');
