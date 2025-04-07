@@ -3,7 +3,6 @@ Lampa.Platform.tv();
 (function () {
     'use strict';
 
-    // Стили адаптивной кнопочной сетки
     var style = document.createElement('style');
     style.innerHTML = `
         .full-start-new__buttons {
@@ -13,17 +12,17 @@ Lampa.Platform.tv();
             justify-content: flex-start;
         }
 
+        /* Чуть ограничим макс. ширину, чтобы не были слишком длинные */
         .full-start__button {
-            max-width: 180px;
-            flex: 1 1 auto;
+            max-width: 160px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        /* При желании можно ещё визуально приглушить КиноПоиск */
-        .full-start__button.view--rate {
-            opacity: 0.6;
+        /* Скрытие текста у КиноПоиска — по желанию */
+        .full-start__button.view--rate span {
+            display: none !important;
         }
     `;
     document.head.appendChild(style);
@@ -42,7 +41,6 @@ Lampa.Platform.tv();
                         try {
                             var fullContainer = e.object.activity.render();
                             var targetContainer = fullContainer.find('.full-start-new__buttons');
-                            console.log('[SorterPlugin] Контейнер найден:', targetContainer);
 
                             var allButtons = fullContainer.find('.buttons--container .full-start__button')
                                 .add(targetContainer.find('.full-start__button'));
@@ -75,10 +73,10 @@ Lampa.Platform.tv();
                                 targetContainer.append(btn);
                             });
 
-                            // Блокируем раскрытие кнопки КиноПоиска
+                            // Блокировка кликов по кнопке КиноПоиска
                             fullContainer.find('.full-start__button.view--rate').each(function () {
                                 const btn = $(this);
-                                btn.off('hover:enter click'); // Убираем родные реакции
+                                btn.off('hover:enter click');
                                 btn.on('hover:enter click', function (e) {
                                     e.preventDefault();
                                     e.stopPropagation();
@@ -87,7 +85,6 @@ Lampa.Platform.tv();
                             });
 
                             Lampa.Controller.toggle("full_start");
-                            console.log('[SorterPlugin] Новый порядок кнопок применён');
                         } catch (err) {
                             console.error('[SorterPlugin] Ошибка сортировки:', err);
                         }
